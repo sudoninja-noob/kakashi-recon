@@ -120,6 +120,9 @@ npm install
 Downloads Electron and all required Node.js packages into `node_modules/`.
 
 ---
+## 📸 Screenshot
+
+![KAKASHI RECON GUI](assets/kakashi_recon.png)
 
 ### Step 4 — Launch the GUI
 
