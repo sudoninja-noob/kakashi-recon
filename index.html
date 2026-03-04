@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';" />
+  <title>The KAKASHI Recon V 1.1</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+  <header class="app-header">
+    <div class="header-left">
+      <span class="logo-icon">◈</span>
+      <span class="logo-text">KAKASHI RECON</span>
+      <span class="logo-version">V 1.1</span>
+    </div>
+    <div class="header-center">
+      <span id="statusDot" class="status-dot idle"></span>
+      <span id="statusText" class="status-text">IDLE</span>
+    </div>
+    <div class="header-right">
+      <span id="timerDisplay" class="timer">00:00</span>
+      <span class="header-credit">Recon Like A Bug Hunter</span>
+      <span class="header-author">by @sudoninja-noob</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════ MAIN LAYOUT ═══════════════════════ -->
+  <div class="app-layout">
+
+    <!-- ──────────── SIDEBAR ──────────── -->
+    <aside class="sidebar">
+
+      <!-- Target Domain -->
+      <div class="ctrl-section">
+        <label class="ctrl-label">TARGET DOMAIN</label>
+        <input
+          id="domainInput"
+          class="ctrl-input"
+          type="text"
+          placeholder="example.com"
+          spellcheck="false"
+          autocomplete="off"
+        />
+      </div>
+
+      <!-- Module Selection -->
+      <div class="ctrl-section">
+        <div class="modules-header">
+          <label class="ctrl-label">MODULES</label>
+          <div class="module-quick-btns">
+            <button class="qbtn" id="selectAllBtn"   title="Select all">ALL</button>
+            <button class="qbtn" id="selectNoneBtn"  title="Deselect all">NONE</button>
+            <button class="qbtn" id="selectQuickBtn" title="Fast recon preset">QUICK</button>
+          </div>
+        </div>
+
+        <div class="modules-grid" id="modulesGrid">
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="wayback" />
+            <span class="mod-icon">⏪</span>
+            <span class="mod-name">Wayback Machine</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="subdomains" checked />
+            <span class="mod-icon">🌐</span>
+            <span class="mod-name">Subdomain Discovery</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="ip" />
+            <span class="mod-icon">📡</span>
+            <span class="mod-name">IP Range / WHOIS</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="js" />
+            <span class="mod-icon">📜</span>
+            <span class="mod-name">JS Endpoints</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="s3" checked />
+            <span class="mod-icon">🪣</span>
+            <span class="mod-name">S3 Bucket Finder</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="github" />
+            <span class="mod-icon">🐱</span>
+            <span class="mod-name">GitHub Recon</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="tech" checked />
+            <span class="mod-icon">🔍</span>
+            <span class="mod-name">Tech Detection</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="content" />
+            <span class="mod-icon">📋</span>
+            <span class="mod-name">Google Dorks</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="quick" checked />
+            <span class="mod-icon">⚡</span>
+            <span class="mod-name">Quick Wins</span>
+          </label>
+
+          <!-- ── New Modules ── -->
+          <div class="mod-divider">── ADVANCED MODULES ──</div>
+
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="dns" checked />
+            <span class="mod-icon">🗺️</span>
+            <span class="mod-name">DNS Records</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="zone" />
+            <span class="mod-icon">🔄</span>
+            <span class="mod-name">Zone Transfer</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="takeover" />
+            <span class="mod-icon">🎯</span>
+            <span class="mod-name">Sub Takeover</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="params" />
+            <span class="mod-icon">🔗</span>
+            <span class="mod-name">Param Extractor</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="secrets" checked />
+            <span class="mod-icon">🔑</span>
+            <span class="mod-name">JS Secrets</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="api" checked />
+            <span class="mod-icon">🔌</span>
+            <span class="mod-name">API / Swagger</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="cors" checked />
+            <span class="mod-icon">🌐</span>
+            <span class="mod-name">CORS Checker</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="tls" checked />
+            <span class="mod-icon">🔒</span>
+            <span class="mod-name">TLS / SSL</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="cookies" />
+            <span class="mod-icon">🍪</span>
+            <span class="mod-name">Cookie Security</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="methods" />
+            <span class="mod-icon">📡</span>
+            <span class="mod-name">HTTP Methods</span>
+          </label>
+          <label class="mod-label">
+            <input type="checkbox" class="mod-cb" value="redirect" />
+            <span class="mod-icon">↩️</span>
+            <span class="mod-name">Redirect &amp; SSRF</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Output Directory -->
+      <div class="ctrl-section">
+        <label class="ctrl-label">OUTPUT DIRECTORY</label>
+        <div class="output-row">
+          <input
+            id="outputInput"
+            class="ctrl-input output-input"
+            type="text"
+            value="recon_output"
+            spellcheck="false"
+          />
+          <button class="browse-btn" id="browseBtn" title="Browse…">📁</button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="ctrl-section btn-group">
+        <button class="btn btn-start" id="startBtn">
+          <span>▶</span> START SCAN
+        </button>
+        <button class="btn btn-stop" id="stopBtn" disabled>
+          <span>■</span> STOP
+        </button>
+      </div>
+
+      <div class="ctrl-section btn-group">
+        <button class="btn btn-secondary" id="clearBtn">
+          ✕ CLEAR OUTPUT
+        </button>
+        <button class="btn btn-secondary" id="openDirBtn">
+          📂 OPEN FOLDER
+        </button>
+      </div>
+
+      <!-- Stats Panel -->
+      <div class="stats-panel" id="statsPanel">
+        <div class="stat-item"><span class="stat-label">Subdomains</span><span class="stat-val" id="statSubs">–</span></div>
+        <div class="stat-item"><span class="stat-label">S3 Buckets</span><span class="stat-val" id="statS3">–</span></div>
+        <div class="stat-item"><span class="stat-label">Quick Wins</span><span class="stat-val" id="statQW">–</span></div>
+        <div class="stat-item"><span class="stat-label">Technologies</span><span class="stat-val" id="statTech">–</span></div>
+        <div class="stat-item"><span class="stat-label">Wayback URLs</span><span class="stat-val" id="statWB">–</span></div>
+        <div class="stat-item"><span class="stat-label">JS Endpoints</span><span class="stat-val" id="statJS">–</span></div>
+      </div>
+
+    </aside>
+
+    <!-- ──────────── MAIN PANEL ──────────── -->
+    <main class="main-panel">
+
+      <!-- Terminal Output -->
+      <div class="terminal-wrapper">
+        <div class="terminal-topbar">
+          <span class="terminal-title">⚡ TERMINAL OUTPUT</span>
+          <span id="moduleProgress" class="module-progress"></span>
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <div class="welcome-msg">
+            <pre class="ascii-logo">
+ ██╗  ██╗ █████╗ ██╗  ██╗ █████╗ ███████╗██╗  ██╗██╗
+ ██║ ██╔╝██╔══██╗██║ ██╔╝██╔══██╗██╔════╝██║  ██║██║
+ █████╔╝ ███████║█████╔╝ ███████║███████╗███████║██║
+ ██╔═██╗ ██╔══██║██╔═██╗ ██╔══██║╚════██║██╔══██║██║
+ ██║  ██╗██║  ██║██║  ██╗██║  ██║███████║██║  ██║██║
+ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝
+      ██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗
+      ██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║
+      ██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║
+      ██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║
+      ██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║
+      ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝╚═╝  ╚═══╝</pre>
+            <p class="welcome-sub">V 1.1 GUI · Recon Like A Bug Hunter · by @sudoninja-noob</p>
+            <p class="welcome-hint">Enter a domain, select modules, then click <strong>▶ START SCAN</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Tabs -->
+      <div class="results-wrapper">
+        <div class="tabs-bar">
+          <button class="tab-btn active" data-tab="summary">📊 Summary</button>
+          <button class="tab-btn" data-tab="subdomains">🌐 Subdomains</button>
+          <button class="tab-btn" data-tab="s3">🪣 S3 Buckets</button>
+          <button class="tab-btn" data-tab="tech">🔍 Technologies</button>
+          <button class="tab-btn" data-tab="quickwins">⚡ Quick Wins</button>
+          <button class="tab-btn" data-tab="dns">🗺️ DNS</button>
+          <button class="tab-btn" data-tab="tls">🔒 TLS/SSL</button>
+          <button class="tab-btn" data-tab="cors">🌐 CORS</button>
+          <button class="tab-btn" data-tab="secrets">🔑 JS Secrets</button>
+          <button class="tab-btn" data-tab="api">🔌 API</button>
+          <button class="tab-btn" data-tab="json">📝 JSON Report</button>
+          <!-- Download buttons -->
+          <div class="dl-btns">
+            <button class="dl-btn" id="dlHtml" disabled title="Download styled HTML report">⬇ HTML</button>
+            <button class="dl-btn" id="dlCsv"  disabled title="Download CSV spreadsheet">⬇ CSV</button>
+            <button class="dl-btn dl-btn-pdf" id="dlPdf"  disabled title="Download PDF report">⬇ PDF</button>
+            <button class="dl-btn" id="dlJson" disabled title="Download raw JSON data">⬇ JSON</button>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-summary">
+          <div class="empty-tab">Run a scan to see results here.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-subdomains">
+          <div class="empty-tab">No subdomain data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-s3">
+          <div class="empty-tab">No S3 bucket data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-tech">
+          <div class="empty-tab">No technology data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-quickwins">
+          <div class="empty-tab">No quick wins data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-dns">
+          <div class="empty-tab">No DNS data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-tls">
+          <div class="empty-tab">No TLS data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-cors">
+          <div class="empty-tab">No CORS data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-secrets">
+          <div class="empty-tab">No JS secrets data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-api">
+          <div class="empty-tab">No API endpoint data yet.</div>
+        </div>
+        <div class="tab-content hidden" id="tab-json">
+          <pre class="json-view" id="jsonView">No report loaded.</pre>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- /.app-layout -->
+
+  <script src="renderer.js"></script>
+</body>
+</html>

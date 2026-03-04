@@ -1,0 +1,28 @@
+{
+  "name": "kakashi-recon",
+  "version": "1.1.0",
+  "description": "The KAKASHI Recon V 1.1 — Web Reconnaissance Tool GUI",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "@sudoninja-noob",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sudoninja-noob/kakashi-recon.git"
+  },
+  "homepage": "https://github.com/sudoninja-noob/kakashi-recon#readme",
+  "keywords": [
+    "recon",
+    "bugbounty",
+    "reconnaissance",
+    "web-security",
+    "electron",
+    "hacking",
+    "osint"
+  ],
+  "devDependencies": {
+    "electron": "^40.6.1"
+  }
+}
